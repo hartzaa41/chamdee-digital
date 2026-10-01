@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#12664f" />
+  <meta name="description" content="ชำดีดิจิทัล เว็บแอปต้นแบบสำหรับสรุปยอดขายและจัดการสต็อกร้านตายาย" />
+  <title>ชำดีดิจิทัล | ร้านตายาย</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2312664f'/%3E%3Cpath d='M18 36h64l-8 44H26z' fill='%23fff8ec'/%3E%3Cpath d='M27 36c0-11 8-20 23-20s23 9 23 20' fill='none' stroke='%23fff8ec' stroke-width='8' stroke-linecap='round'/%3E%3Ccircle cx='39' cy='52' r='4' fill='%23f28b56'/%3E%3Ccircle cx='51' cy='52' r='4' fill='%23f28b56'/%3E%3Ccircle cx='63' cy='52' r='4' fill='%23f28b56'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="เมนูหลัก">
+      <div class="brand-lockup">
+        <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div><div class="brand-name">ชำดีดิจิทัล</div><div class="brand-caption">ร้านตายาย</div></div>
+      </div>
+      <div class="store-chip"><span class="status-dot"></span><span>โหมดสาธิตข้อมูลจำลอง</span></div>
+      <nav class="main-nav">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">▦</span><span>ภาพรวมร้าน</span></button>
+        <button class="nav-item" data-view="sales"><span class="nav-icon">＋</span><span>บันทึกยอดขาย</span></button>
+        <button class="nav-item" data-view="inventory"><span class="nav-icon">▤</span><span>สต็อกสินค้า</span></button>
+      </nav>
+      <div class="sidebar-note"><strong>ทำให้ร้านชำดูง่ายขึ้น</strong><span>สรุปเร็ว เห็นของเหลือ ตัดสินใจได้</span></div>
+      <button class="reset-button" id="resetData"><span>↺</span> รีเซ็ตข้อมูลตัวอย่าง</button>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="mobile-brand"><div class="brand-mark small" aria-hidden="true"><span></span><span></span><span></span></div><span>ชำดีดิจิทัล</span></div>
+        <div class="topbar-context"><span class="context-label">ร้านตายาย</span><span class="context-separator">/</span><span id="viewLabel">ภาพรวมร้าน</span></div>
+        <div class="topbar-actions"><span class="today-label" id="todayLabel"></span><div class="avatar">ตา</div></div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="view active" id="dashboardView" aria-labelledby="dashboardTitle">
+          <div class="page-heading"><div><p class="eyebrow">สวัสดีครับ ร้านตายาย</p><h1 id="dashboardTitle">ภาพรวมร้านวันนี้</h1><p class="heading-description">ดูตัวเลขสำคัญของร้านได้ในหน้าเดียว</p></div><button class="primary-button" data-view="sales"><span>＋</span> บันทึกยอดขาย</button></div>
+          <div class="metric-grid">
+            <article class="metric-card hero-metric"><div class="metric-top"><span class="metric-label">ยอดขายวันนี้</span><span class="metric-icon green">฿</span></div><div class="metric-value" id="todayRevenue">฿0</div><div class="metric-foot"><span class="positive-pill">วันนี้</span><span id="todayOrderCount">0 รายการ</span></div></article>
+            <article class="metric-card"><div class="metric-top"><span class="metric-label">รายการขาย</span><span class="metric-icon purple">≡</span></div><div class="metric-value" id="todayOrders">0</div><div class="metric-foot"><span class="muted-foot">รายการในวันนี้</span></div></article>
+            <article class="metric-card"><div class="metric-top"><span class="metric-label">สินค้าใกล้หมด</span><span class="metric-icon orange">!</span></div><div class="metric-value" id="lowStockCount">0</div><div class="metric-foot"><button class="text-link" data-view="inventory">ดูรายการ →</button></div></article>
+            <article class="metric-card"><div class="metric-top"><span class="metric-label">สินค้าที่มีในร้าน</span><span class="metric-icon blue">□</span></div><div class="metric-value" id="productCount">0</div><div class="metric-foot"><span class="muted-foot">รายการสินค้า</span></div></article>
+          </div>
+          <div class="dashboard-grid">
+            <article class="panel sales-panel"><div class="panel-heading"><div><h2>ยอดขาย 7 วันล่าสุด</h2><p>ภาพรวมจากรายการที่บันทึก</p></div><span class="panel-badge">ยอดขาย</span></div><div class="chart-wrap"><div class="chart-y"><span>1,000</span><span>750</span><span>500</span><span>250</span><span>0</span></div><div class="chart-area" id="salesChart" aria-label="กราฟยอดขาย 7 วันล่าสุด"></div></div></article>
+            <article class="panel best-panel"><div class="panel-heading"><div><h2>สินค้าขายดี</h2><p>เรียงตามจำนวนที่ขายออก</p></div><span class="panel-badge warm">Top 4</span></div><div class="best-list" id="bestSellers"></div></article>
+          </div>
+          <article class="panel alert-panel"><div class="panel-heading"><div><h2>ควรสั่งเพิ่ม</h2><p>รายการที่มีจำนวนคงเหลือน้อยกว่าจุดสั่งซื้อ</p></div><button class="text-link" data-view="inventory">ดูสต็อกทั้งหมด →</button></div><div class="stock-alerts" id="stockAlerts"></div></article>
+        </section>
+
+        <section class="view" id="salesView" aria-labelledby="salesTitle">
+          <div class="page-heading"><div><p class="eyebrow">บันทึกข้อมูลให้เป็นระบบ</p><h1 id="salesTitle">บันทึกยอดขาย</h1><p class="heading-description">กรอกข้อมูลการขาย แล้วระบบจะคำนวณยอดรวมและตัดสต็อกให้</p></div><div class="quick-hint">ข้อมูลจะถูกเก็บไว้ในเครื่องนี้</div></div>
+          <div class="sales-layout"><article class="panel form-panel"><div class="panel-heading"><div><h2>รายการขายใหม่</h2><p>กรอกข้อมูลให้ครบ แล้วกดบันทึก</p></div><span class="form-number">01</span></div><form id="saleForm"><label for="saleProduct">สินค้า<select id="saleProduct" required></select></label><div class="form-row"><label for="saleQuantity">จำนวน<input id="saleQuantity" type="number" min="1" step="1" value="1" required /></label><label for="salePrice">ราคาต่อหน่วย<input id="salePrice" type="number" min="0" step="0.01" placeholder="0.00" required /></label></div><div class="total-preview"><span>ยอดรวมรายการนี้</span><strong id="saleTotal">฿0.00</strong></div><button class="primary-button full-width" type="submit"><span>✓</span> บันทึกรายการขาย</button></form></article><article class="panel recent-panel"><div class="panel-heading"><div><h2>รายการขายล่าสุด</h2><p>ตรวจสอบรายการที่บันทึกไปแล้ว</p></div><span class="panel-badge">ล่าสุด</span></div><div id="recentSales" class="recent-sales"></div></article></div>
+        </section>
+
+        <section class="view" id="inventoryView" aria-labelledby="inventoryTitle">
+          <div class="page-heading"><div><p class="eyebrow">จัดการของในร้าน</p><h1 id="inventoryTitle">สต็อกสินค้า</h1><p class="heading-description">ดูจำนวนคงเหลือและเพิ่มสินค้าเข้าได้จากหน้านี้</p></div><button class="secondary-button" id="openAddStock"><span>＋</span> เพิ่มสินค้าเข้า</button></div>
+          <article class="panel inventory-panel"><div class="inventory-toolbar"><div class="search-box"><span>⌕</span><input id="inventorySearch" type="search" placeholder="ค้นหาสินค้า..." /></div><div class="legend"><span><i class="legend-dot normal"></i>ปกติ</span><span><i class="legend-dot warning"></i>ใกล้หมด</span><span><i class="legend-dot danger"></i>ควรสั่งเพิ่ม</span></div></div><div class="table-scroll"><table><thead><tr><th>สินค้า</th><th>หมวดหมู่</th><th>รับเข้า</th><th>ขายออก</th><th>คงเหลือ</th><th>สถานะ</th><th></th></tr></thead><tbody id="inventoryBody"></tbody></table></div></article>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="stockModal" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="stockModalTitle"><button class="modal-close" id="closeStockModal" aria-label="ปิด">×</button><p class="eyebrow">อัปเดตสต็อก</p><h2 id="stockModalTitle">เพิ่มสินค้าเข้า</h2><p class="modal-description">เพิ่มจำนวนสินค้าเข้าสต็อกเพื่อใช้สาธิตการเคลื่อนไหว</p><form id="stockForm"><label for="stockProduct">เลือกสินค้า<select id="stockProduct" required></select></label><label for="stockQuantity">จำนวนที่รับเข้า<input id="stockQuantity" type="number" min="1" step="1" value="10" required /></label><button class="primary-button full-width" type="submit">บันทึกการรับเข้า</button></form></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"><span class="toast-icon">✓</span><span id="toastMessage">บันทึกแล้ว</span></div>
+  <script src="app.js"></script>
+</body>
+</html>
